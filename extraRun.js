@@ -1,7 +1,7 @@
 var fs = require('fs'); 
 var matches = fs.readFileSync('matches.csv','utf8');
 var deliveries=fs.readFileSync('deliveries.csv','utf8');
-
+function extraRuns(matches,deliveries){
 var matchesdata=[];
 let detail=matches.split('\n');
 for(let i=0;i<detail.length;i++){
@@ -50,8 +50,12 @@ for(let i=0;i<uniqueID.length;i++){
       
     }
   }
+  console.log(obj)
 
-console.log(obj);
+}
+//console.log(obj);
+extraRuns(matches,deliveries);
+
 
 
   
