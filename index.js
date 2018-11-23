@@ -1,61 +1,24 @@
-let csvToJson = require('convert-csv-to-json');
-let iplData=csvToJson.fieldDelimiter(',') .getJsonFromCsv('matches.csv');
-//console.log(iplData);
-let seasonArr=[];
-	for(let i=0;i<iplData.length;i++){
-		seasonArr.push(iplData[i].season);
-	}
-	seasonArr.sort();
-let returnMatches={};
+const path = require("path");
+const first = require("./numberOfMatchesPerYear.js");
+const second = require("./matchesWonYearly.js");
+const ids = require("./idArray.js");
+const third = require("./extraRun.js");
+const fourth = require("./economical.js");
 
 
-let winArr=[];
-	for(let i=0;i<iplData.length;i++){
-		winArr.push(iplData[i].winner);
-	}
-	winArr.sort();
-Let returnWins={};
 
-//let seasonArr
-//console.log(seasonArr);
+function matchesPerSeason(){
+	let dataSet = path.resolve("matches.csv"); //path to file in currentr system
+	first.getMatchesPerYear(dataSet).then(function(data){
+	    let arr1 =  Object.keys(data);
+	    let arr2 = [];
+	    arr1.map(function(key){ arr2.push(data[key]);});//console.log(arr2);
+	    let combinedArr = {};
+	    combinedArr.seasons = arr1;
+	    combinedArr.matches = arr2;
+	    console.log("first answer", combinedArr)
+	})
 
-
-function matchPerYear(data){
-	
-//console.log(seasonArr);
-
-
-var current = null;
-    var cnt = 0;
-    for (var i = 0; i < seasonArr.length; i++) {
-        if (seasonArr[i] != current) {
-            if (cnt > 0) {
-               // console.log(current + ' comes --> ' + cnt + ' times');
-                returnMatches[current]=cnt;
-            }
-            current = seasonArr[i];
-            cnt = 1;
-        } else {
-            cnt++;
-        }
-    }
-    if (cnt > 0) {
-        //console.log(current + ' comes --> ' + cnt + ' times');
-        returnMatches[current]=cnt;
-    }
-    console.log(returnMatches);
 }
 
-
-function matchesWonYearly(data){
-for(let i=seasonArr[0];i<=seasonArr[seasonArr.length-1];i++){
-	//console.log(i);
-	if()
-}	
-}
-
-
-matchPerYear(seasonArr);
-matchesWonYearly(iplData);
-
-
+matchesPerSeason();
