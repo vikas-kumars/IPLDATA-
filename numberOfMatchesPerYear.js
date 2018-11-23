@@ -6,17 +6,19 @@ function getMatchesPerYear(matchesFile){
         let matchesPerSeason = {};
         csv.fromPath(matchesFile)
                 .on("data", function(match){
-                    let season = match[1];
+                    let season = match[1]; //holds value of season
                     if(counter){
                         matchesPerSeason[season] = !matchesPerSeason.hasOwnProperty(season) ? 1 : matchesPerSeason[season] + 1;
                     }
                     counter++;
                 })
                 .on("end", function(){
-                   resolve(matchesPerSeason);
+                   resolve(matchesPerSeason); //returning matches per season obj
                 });
     })
-    //console.log(matchesPerSeason);
 }
 
 
+module.exports = {
+    getMatchesPerYear: getMatchesPerYear,
+}
